@@ -34,7 +34,10 @@ class ChessBoard:
     def check_if_field_exists(self, field: str):
         for row in self._board_grid:
             for col in row:
-                return field == col
+                if field == col:
+                    return True
+
+        return False
 
     def __iter__(self):
         return self._board_grid
