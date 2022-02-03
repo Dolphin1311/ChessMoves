@@ -2,19 +2,19 @@ from abc import ABC, abstractmethod
 from custom_list import CustomList
 
 relation_let_to_num = {
-    'A': 1,
-    'B': 2,
-    'C': 3,
-    'D': 4,
-    'E': 5,
-    'F': 6,
-    'G': 7,
-    'H': 8,
+    "A": 1,
+    "B": 2,
+    "C": 3,
+    "D": 4,
+    "E": 5,
+    "F": 6,
+    "G": 7,
+    "H": 8,
 }
 
 
 class ChessBoard:
-    _letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    _letters = ["A", "B", "C", "D", "E", "F", "G", "H"]
 
     def __init__(self):
         self._board_grid = CustomList()
@@ -22,7 +22,9 @@ class ChessBoard:
 
     def _generate_board(self):
         for square in range(1, 9):
-            append_list = CustomList([(letter + str(square)) for letter in self._letters])
+            append_list = CustomList(
+                [(letter + str(square)) for letter in self._letters]
+            )
             self._board_grid.append(append_list)
 
     def show_board(self):
@@ -55,7 +57,16 @@ class Figure(ABC):
 
 class King(Figure):
     def list_available_moves(self):
-        king_moves = ((1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0))
+        king_moves = (
+            (1, -1),
+            (0, -1),
+            (-1, -1),
+            (-1, 0),
+            (-1, 1),
+            (0, 1),
+            (1, 1),
+            (1, 0),
+        )
         available_moves = []
         # get indexes of figure position
         pos_row = int(self.field[1]) - 1
@@ -64,7 +75,9 @@ class King(Figure):
         for move in king_moves:
             row, col = move
             try:
-                available_moves.append(self.board.get_position(pos_row + row, pos_col + col))
+                available_moves.append(
+                    self.board.get_position(pos_row + row, pos_col + col)
+                )
             except IndexError:
                 pass
 
@@ -87,13 +100,21 @@ class Queen(Figure):
             for i in range(1, 8):
                 try:
                     if d == (-1, -1):
-                        available_moves.append(self.board.get_position(pos_row - i, pos_col - i))
+                        available_moves.append(
+                            self.board.get_position(pos_row - i, pos_col - i)
+                        )
                     elif d == (-1, 1):
-                        available_moves.append(self.board.get_position(pos_row - i, pos_col + i))
+                        available_moves.append(
+                            self.board.get_position(pos_row - i, pos_col + i)
+                        )
                     elif d == (1, 1):
-                        available_moves.append(self.board.get_position(pos_row + i, pos_col + i))
+                        available_moves.append(
+                            self.board.get_position(pos_row + i, pos_col + i)
+                        )
                     elif d == (1, -1):
-                        available_moves.append(self.board.get_position(pos_row + i, pos_col - i))
+                        available_moves.append(
+                            self.board.get_position(pos_row + i, pos_col - i)
+                        )
                 except IndexError:
                     pass
 
@@ -101,13 +122,21 @@ class Queen(Figure):
             for i in range(1, 8):
                 try:
                     if d == (0, -1):
-                        available_moves.append(self.board.get_position(pos_row, pos_col - i))
+                        available_moves.append(
+                            self.board.get_position(pos_row, pos_col - i)
+                        )
                     elif d == (-1, 0):
-                        available_moves.append(self.board.get_position(pos_row - i, pos_col))
+                        available_moves.append(
+                            self.board.get_position(pos_row - i, pos_col)
+                        )
                     elif d == (0, 1):
-                        available_moves.append(self.board.get_position(pos_row, pos_col + i))
+                        available_moves.append(
+                            self.board.get_position(pos_row, pos_col + i)
+                        )
                     elif d == (1, 0):
-                        available_moves.append(self.board.get_position(pos_row + i, pos_col))
+                        available_moves.append(
+                            self.board.get_position(pos_row + i, pos_col)
+                        )
                 except IndexError:
                     pass
 
@@ -129,13 +158,21 @@ class Bishop(Figure):
             for i in range(1, 8):
                 try:
                     if d == (-1, -1):
-                        available_moves.append(self.board.get_position(pos_row - i, pos_col - i))
+                        available_moves.append(
+                            self.board.get_position(pos_row - i, pos_col - i)
+                        )
                     elif d == (-1, 1):
-                        available_moves.append(self.board.get_position(pos_row - i, pos_col + i))
+                        available_moves.append(
+                            self.board.get_position(pos_row - i, pos_col + i)
+                        )
                     elif d == (1, 1):
-                        available_moves.append(self.board.get_position(pos_row + i, pos_col + i))
+                        available_moves.append(
+                            self.board.get_position(pos_row + i, pos_col + i)
+                        )
                     elif d == (1, -1):
-                        available_moves.append(self.board.get_position(pos_row + i, pos_col - i))
+                        available_moves.append(
+                            self.board.get_position(pos_row + i, pos_col - i)
+                        )
                 except IndexError:
                     pass
 
@@ -157,13 +194,21 @@ class Rook(Figure):
             for i in range(1, 8):
                 try:
                     if d == (0, -1):
-                        available_moves.append(self.board.get_position(pos_row, pos_col - i))
+                        available_moves.append(
+                            self.board.get_position(pos_row, pos_col - i)
+                        )
                     elif d == (-1, 0):
-                        available_moves.append(self.board.get_position(pos_row - i, pos_col))
+                        available_moves.append(
+                            self.board.get_position(pos_row - i, pos_col)
+                        )
                     elif d == (0, 1):
-                        available_moves.append(self.board.get_position(pos_row, pos_col + i))
+                        available_moves.append(
+                            self.board.get_position(pos_row, pos_col + i)
+                        )
                     elif d == (1, 0):
-                        available_moves.append(self.board.get_position(pos_row + i, pos_col))
+                        available_moves.append(
+                            self.board.get_position(pos_row + i, pos_col)
+                        )
                 except IndexError:
                     pass
 
@@ -175,7 +220,16 @@ class Rook(Figure):
 
 class Knight(Figure):
     def list_available_moves(self):
-        knight_moves = ((1, -2), (-1, -2), (-2, -1), (-2, 1), (-1, 2), (1, 2), (2, 1), (2, -1))
+        knight_moves = (
+            (1, -2),
+            (-1, -2),
+            (-2, -1),
+            (-2, 1),
+            (-1, 2),
+            (1, 2),
+            (2, 1),
+            (2, -1),
+        )
         available_moves = []
         # get indexes of figure position
         pos_row = int(self.field[1]) - 1
@@ -184,7 +238,9 @@ class Knight(Figure):
         for move in knight_moves:
             row, col = move
             try:
-                available_moves.append(self.board.get_position(pos_row + row, pos_col + col))
+                available_moves.append(
+                    self.board.get_position(pos_row + row, pos_col + col)
+                )
             except IndexError:
                 pass
 
