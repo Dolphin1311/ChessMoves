@@ -141,3 +141,31 @@ class Bishop(Figure):
 
     def validate_move(self, dest_field: str):
         return dest_field in self.list_available_moves()
+
+
+class Rook(Figure):
+    def list_available_moves(self):
+        directions = ((0, -1), (-1, 0), (0, 1), (1, 0))  # left, up, right, down
+        available_moves = []
+        # get indexes of figure position
+        pos_row = int(self.field[1]) - 1
+        pos_col = int(relation_let_to_num[self.field[0]]) - 1
+
+        for d in directions:
+            for i in range(1, 8):
+                try:
+                    if d == (0, -1):
+                        available_moves.append(self.board.get_position(pos_row, pos_col - i))
+                    elif d == (-1, 0):
+                        available_moves.append(self.board.get_position(pos_row - i, pos_col))
+                    elif d == (0, 1):
+                        available_moves.append(self.board.get_position(pos_row, pos_col + i))
+                    elif d == (1, 0):
+                        available_moves.append(self.board.get_position(pos_row + i, pos_col))
+                except IndexError:
+                    pass
+
+        return available_moves
+
+    def validate_move(self, dest_field: str):
+        return dest_field in self.list_available_moves()
