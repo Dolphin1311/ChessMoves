@@ -169,3 +169,24 @@ class Rook(Figure):
 
     def validate_move(self, dest_field: str):
         return dest_field in self.list_available_moves()
+
+
+class Knight(Figure):
+    def list_available_moves(self):
+        knight_moves = ((1, -2), (-1, -2), (-2, -1), (-2, 1), (-1, 2), (1, 2), (2, 1), (2, -1))
+        available_moves = []
+        # get indexes of figure position
+        pos_row = int(self.field[1]) - 1
+        pos_col = int(relation_let_to_num[self.field[0]]) - 1
+
+        for move in knight_moves:
+            row, col = move
+            try:
+                available_moves.append(self.board.get_position(pos_row + row, pos_col + col))
+            except IndexError:
+                pass
+
+        return available_moves
+
+    def validate_move(self, dest_field: str):
+        return dest_field in self.list_available_moves()
