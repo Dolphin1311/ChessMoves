@@ -37,3 +37,37 @@ class ChessBoard:
             return self._board_grid[row][col]
         except IndexError:
             raise IndexError
+
+class Figure(ABC):
+    def __init__(self, board: ChessBoard, field: str):
+        self.board = board
+        self.field = field
+
+    @abstractmethod
+    def list_available_moves(self):
+        pass
+
+    @abstractmethod
+    def validate_move(self, dest_field: str):
+        pass
+
+
+class King(Figure):
+    def list_available_moves(self):
+        king_moves = ((1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0))
+        available_moves = []
+        # get indexes of figure position
+        pos_row = int(self.field[1]) - 1
+        pos_col = int(relation_let_to_num[self.field[0]]) - 1
+
+        for move in king_moves:
+            row, col = move
+            try:
+                available_moves.append(self.board.get_position(pos_row + row, pos_col + col))
+            except IndexError:
+                pass
+
+        return available_moves
+
+    def validate_move(self, dest_field: str):
+        return dest_field in self.list_available_moves()
