@@ -38,6 +38,7 @@ class ChessBoard:
         except IndexError:
             raise IndexError
 
+
 class Figure(ABC):
     def __init__(self, board: ChessBoard, field: str):
         self.board = board
@@ -71,6 +72,7 @@ class King(Figure):
 
     def validate_move(self, dest_field: str):
         return dest_field in self.list_available_moves()
+
 
 class Queen(Figure):
     def list_available_moves(self):
