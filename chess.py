@@ -32,6 +32,7 @@ class ChessBoard:
             print(row)
 
     def check_if_field_exists(self, field: str):
+        field = field.capitalize()
         for row in self._board_grid:
             for col in row:
                 if field == col:
